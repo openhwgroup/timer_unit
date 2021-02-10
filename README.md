@@ -5,5 +5,7 @@
   In 64-bit mode the two counters are concatenated.
   added MTIME mode to generate an interrupt whenever count value is equal to
   or greate than the compare value.
+
+Added stoptimer input to disable counting when active.  
   
 
