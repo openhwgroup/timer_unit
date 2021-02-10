@@ -23,7 +23,8 @@ module timer_unit_counter
    input  logic [31:0] compare_value_i,
    
    output logic [31:0] counter_value_o,
-   output logic        target_reached_o
+   output logic        target_reached_o,
+   output logic        target_greater_o
    );
    
    logic [31:0]        s_count, s_count_reg;
@@ -59,13 +60,20 @@ module timer_unit_counter
    // COMPARATOR
    always_ff@(posedge clk_i, negedge rst_ni)
    begin
-      if (rst_ni == 0)
+      if (rst_ni == 0) begin
          target_reached_o <= 1'b0;
-      else
+	 target_greater_o <= 1'b0;
+      end
+      else begin
          if ( s_count == compare_value_i )
             target_reached_o <= 1'b1;
          else
             target_reached_o <= 1'b0;
+	 if (s_count > compare_value_i)
+	   target_greater_o <= 1'b1;
+	 else
+	   target_greater_o <= 1'b0;
+      end // else: !if(rst_ni == 0)
    end
    
    assign counter_value_o = s_count_reg;
