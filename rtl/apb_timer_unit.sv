@@ -372,7 +372,7 @@ module apb_timer_unit
 	  begin
 	    if ( ( s_cfg_lo_reg[`PRESCALER_EN_BIT] == 1'b0 ) && s_cfg_lo_reg[`REF_CLK_EN_BIT] == 1'b0 ) // prescaler disabled, ref clock disabled
 	    begin
-		  	s_enable_count_lo = stoptimer_i & 1'b1;
+		  	s_enable_count_lo = ~stoptimer_i & 1'b1;
 		  	s_enable_count_hi = ( s_timer_val_lo == 32'hFFFFFFFF ) & ~stoptimer_i;
 	    end
 	    else if ( s_cfg_lo_reg[`PRESCALER_EN_BIT] == 1'b0 && s_cfg_lo_reg[`REF_CLK_EN_BIT] == 1'b1 ) // prescaler disabled, ref clock enabled
